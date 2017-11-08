@@ -34,7 +34,7 @@ class Matrix : MatrixExpr<Matrix<num>> {
 
   Matrix(const size_t& row_size, const size_t& col_size)
       : n{row_size}, cols{col_size}, elem{new num[n * cols]} {
-    std::cout << "\n\ndefault\n\n";
+    /* std::cout << "\n\ndefault\n\n"; */
   }
 
   // Matrix(const Matrix&) = delete;
@@ -46,14 +46,14 @@ class Matrix : MatrixExpr<Matrix<num>> {
 
   Matrix(Matrix&& m)
       : n{std::move(m.n)}, cols{std::move(m.cols)}, elem{std::move(m.elem)} {
-    std::cout << "\n\nMOVE\n\n";
+    /* std::cout << "\n\nMOVE\n\n"; */
     m.elem = nullptr;
   }
 
   template <typename OP>
   Matrix(MatrixExpr<OP> const& me)
       : n{me.get_row()}, cols{me.get_col()}, elem{new num[n * cols]} {
-    std::cout << "\n\nEXPR\n\n";
+    /* std::cout << "\n\nEXPR\n\n"; */
     for (auto i = 0; i < n * cols; ++i)
       elem[i] = me[i];
   }
@@ -137,11 +137,10 @@ void dwim(const Matrix<num>& m) {
   std::cout << m << std::endl;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   auto c = 0;
-
-
-  constexpr std::size_t N = 20000; 
+  std::size_t N ;
+  N = atoi(argv[1]); 
   Matrix<std::size_t> m0(N , N);
   Matrix<std::size_t> m1(N , N);
   Matrix<std::size_t> m2(N , N);
@@ -159,8 +158,8 @@ int main() {
   // const auto mm = m1 + m1 + m1 + m1 + m1 + m1 + m1 + m1 + m1;
   /* std::cout << m1[1] << " " << m1[99] << std::endl; */
 auto t1 = std::chrono::high_resolution_clock::now();
-  // Matrix<std::size_t> rh {m0 + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9};
-  Matrix<std::size_t> rh {m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0};
+  Matrix<std::size_t> rh {m0 + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9};
+  /* Matrix<std::size_t> rh {m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0 + m0}; */
 
 auto t2 = std::chrono::high_resolution_clock::now();
   // Matrix<std::size_t> rh {m1 + m1};
